@@ -1,9 +1,9 @@
-/** * Manual de Estudio: Componente Contador con Vue 3 y TypeScript * * Este componente implementa
+/** * Manual de Estudio: Componente de forma corta de un Contador con Vue 3 y TypeScript * * Este componente implementa
 un contador interactivo utilizando la Composition API de Vue 3. * * Estructura del template: * -
 Muestra el valor actual del contador (`counter`). * - Muestra el cuadrado del contador (`square`),
 calculado automáticamente. * - Incluye dos botones para incrementar y decrementar el contador. * *
 Lógica en
-<!-- *<script setup>:
+<!-- *<script setup>: setup es una sintaxis especial en Vue 3 que permite usar la Composition API de manera más concisa sin la necesidad de hacer exportaciones explicitas.
  * - `counter`: Es una variable reactiva inicializada en 10 usando `ref.
  * - `square`: Es una propiedad computada (`computed`) que retorna el cuadrado del valor actual de `counter`.
  * - Los botones modifican el valor de `counter` directamente usando los eventos `@click`.
@@ -55,17 +55,60 @@ Lógica en
     <h3>Square: {{square }}</h3>
 
     <div>
-      <button @click="counter++">+1</button>
-      <button @click="counter--">-1</button>
+      <button class="btn" @click="counter++">+1</button>
+      <button class="btn" @click="counter--">-1</button>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+//trabajando con composables que son funciones reutilizables que encapsulan logica reactiva de Vue
+import { useCounter } from '@/composables/useCounter';
 
-const counter = ref(10);
-const square = computed(() => counter.value * counter.value);
+
+const{counter, square} = useCounter();
+const props = defineProps<{ value: number }>();
+
+// import { computed, ref } from 'vue';
+
+
+  // Props Manual:
+
+  // En Vue, las "props" (propiedades) son una forma de pasar datos desde un componente padre a un componente hijo.
+  // Permiten que los componentes sean reutilizables y configurables.
+
+  // ¿Cómo se usan?
+  // 1. Definición: En el componente hijo, se definen las props que se esperan recibir.
+  //    Ejemplo:
+  //    props: {
+  //      count: {
+  //        type: Number,
+  //        required: true,
+  //        default: 0
+  //      }
+  //    }
+
+  // 2. Uso: Dentro del componente hijo, puedes acceder a las props como variables locales.
+  //    Ejemplo:
+  //    <template>
+  //      <div>{{ count }}</div>
+  //    </template>
+
+  // 3. Envío: Desde el componente padre, se pasan los valores de las props al hijo usando atributos.
+  //    Ejemplo:
+  //    <Counter :count="10" />
+
+  // Notas importantes:
+  // - Las props son de solo lectura en el componente hijo.
+  // - Si necesitas modificar una prop, crea una copia local o usa eventos para comunicar cambios al padre.
+  // - Puedes validar el tipo, requerimiento y valor por defecto de cada prop.
+
+  // Referencia oficial: https://vuejs.org/guide/components/props.html
+
+
+
+// const counter = ref<number>(props.value);
+// const square = computed(() => counter.value * counter.value);
 </script>
 
 <style scoped>
