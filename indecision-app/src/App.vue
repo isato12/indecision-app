@@ -1,17 +1,19 @@
+
 <template>
-  <h1> Hola mundo </h1>
+  <h1>Mi primer app</h1>
+  <hr>
+
+  <Counter />
+
 </template>
 
-
-
 <script lang="ts" setup>
-  console.log("hola mundo");
+import Counter from './components/Counter.vue';
 
 </script>
 
 <style scoped>
-  h1{
-    color:red;
-  }
+h1 {
+  color: red;
+}
 </style>
-
